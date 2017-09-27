@@ -3,6 +3,7 @@
 
 import csv
 import json
+import re
 
 class CsvFilterRuleLoader(object):
 
@@ -73,7 +74,7 @@ class CsvFilter(object):
         ans = list()
         for d in data:
             for r in self._rules:
-                if r.column() in d.keys() and d[r.column()] == r.keyword():
+                if r.column() in d.keys() and re.search(r.keyword(), d[r.column()]):
                     ans.append(d)
                     break
         return ans
